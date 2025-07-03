@@ -21,7 +21,7 @@ jobs:
       - name: Buildozer ve bağımlılıkları yükle
         run: |
           sudo apt update
-          sudo apt install -y libz-dev libncurses5 libandroid-tools-adb unzip git openjdk-17-jdk
+          sudo apt install -y libz-dev libncurses6 adb unzip git openjdk-17-jdk
           pip install --upgrade pip
           pip install buildozer cython virtualenv
 
@@ -29,8 +29,4 @@ jobs:
         run: |
           buildozer android debug
 
-      - name: APK dosyasını yükle
-        uses: actions/upload-artifact@v4
-        with:
-          name: myapp-release
-          path: bin/*.apk
+      - name: APK dosyas
