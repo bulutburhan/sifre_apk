@@ -14,6 +14,9 @@ source.dir = .
 source.main = main.py
 icon.filename = icon.png
 
+# Android SDK lisansını otomatik kabul et
+android.accept_sdk_license = True
+
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas
