@@ -10,27 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Depoyu klonla
-      uses: actions/checkout@v4
+    - name: Repo'yu klonla
+      uses: actions/checkout@v3
 
-    - name: Python kur
+    - name: Python'u kur
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: 3.10
 
-    - name: Buildozer ve gereklilikleri yükle
+    - name: Bağımlılıkları kur
       run: |
         sudo apt update
-        sudo apt install -y zip unzip openjdk-17-jdk python3-pip libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libmtdev-dev libgl1-mesa-dev libgles2-mesa-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libavcodec-dev libavformat-dev libswscale-dev libjpeg-dev libfreetype6-dev
-        pip install --upgrade pip setuptools Cython virtualenv
-        pip install buildozer
+        sudo apt install -y zip unzip openjdk-17-jdk python3-pip git wget
+        pip install --upgrade pip
+        pip install buildozer cython
+
+    - name: Android SDK Build-Tools 34 kur
+      run: |
+        yes | sdkmanager --install "build-tools;34.0.0"
+
+    - name: Buildozer'ı hazırla
+      run: |
+        buildozer android clean
 
     - name: APK üret
-      run: |
-        buildozer android debug
+      run: buildozer android debug
 
-    - name: APK dosyasını yükle
-      uses: actions/upload-artifact@v4
+    - name: APK'yı yükle
+      uses: actions/upload-artifact@v3
       with:
-        name: sifre_apk.apk
+        name: kivy-apk
         path: bin/*.apk
